@@ -1,166 +1,142 @@
-:root {
-    --bg-color: #ffffff;
-    --text-color: #333333;
-    --header-bg: #2c3e50;
-    --header-text: #ecf0f1;
-    --code-bg: #f4f4f4;
+// Theme switcher
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-theme');
+    localStorage.setItem('theme', body.classList.contains('dark-theme') ? 'dark' : 'light');
+});
+
+// Load saved theme
+if (localStorage.getItem('theme') === 'dark') {
+    body.classList.add('dark-theme');
 }
 
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    color: var(--text-color);
-    background-color: var(--bg-color);
+// Blog posts
+let posts = JSON.parse(localStorage.getItem('posts')) || [];
+let currentPage = 1;
+const postsPerPage = 5;
+
+function displayPosts(postsToDisplay = posts) {
+    const blogPosts = document.getElementById('blog-posts');
+    const startIndex = (currentPage - 1) * postsPerPage;
+    const endIndex = startIndex + postsPerPage;
+    const pagePostsToDisplay = postsToDisplay.slice(startIndex, endIndex);
+    
+    pagePostsToDisplay.forEach((post, index) => {
+        const article = document.createElement('article');
+        article.innerHTML = `
+            <h3>${post.title}</h3>
+            <div class="post-content">${formatContent(post.content)}</div>
+            <p>Published on: ${post.date}</p>
+            <div class="comments"></div>
+            <form class="comment-form">
+                <input type="text" placeholder="Add a comment" required>
+                <button type="submit">Comment</button>
+            </form>
+        `;
+        
+        const commentForm = article.querySelector('.comment-form');
+        const commentsDiv = article.querySelector('.comments');
+        
+        commentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const commentInput = commentForm.querySelector('input');
+            const comment = commentInput.value;
+            post.comments.push(comment);
+            localStorage.setItem('posts', JSON.stringify(posts));
+            displayComments(commentsDiv, post.comments);
+            commentInput.value = '';
+        });
+        
+        displayComments(commentsDiv, post.comments);
+        
+        blogPosts.appendChild(article);
+    });
+
+    // Apply syntax highlighting
+    document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightBlock(block);
+    });
 }
 
-body.dark-theme {
-    --bg-color: #333333;
-    --text-color: #ffffff;
-    --header-bg: #1a242f;
-    --header-text: #ffffff;
-    --code-bg: #2d2d2d;
+function formatContent(content) {
+    // Replace ```language ... ``` with <pre><code class="language">...</code></pre>
+    return content.replace(/```(\w+)?\s*([\s\S]*?)```/g, (match, language, code) => {
+        return `<pre><code class="${language || ''}">${code.trim()}</code></pre>`;
+    });
 }
 
-header {
-    background-color: var(--header-bg);
-    color: var(--header-text);
-    padding: 1rem;
-    text-align: center;
+function displayComments(commentsDiv, comments) {
+    commentsDiv.innerHTML = '';
+    comments.forEach(comment => {
+        const commentElement = document.createElement('div');
+        commentElement.classList.add('comment');
+        commentElement.textContent = comment;
+        commentsDiv.appendChild(commentElement);
+    });
 }
 
-header h1 {
-    margin: 0;
+// New post form
+const postForm = document.getElementById('post-form');
+
+postForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const title = document.getElementById('post-title').value;
+    const content = document.getElementById('post-content').value;
+    const date = new Date().toLocaleDateString();
+    
+    const newPost = {
+        title,
+        content,
+        date,
+        comments: []
+    };
+    
+    posts.unshift(newPost);
+    localStorage.setItem('posts', JSON.stringify(posts));
+    currentPage = 1;
+    document.getElementById('blog-posts').innerHTML = '';
+    displayPosts();
+    
+    postForm.reset();
+});
+
+// Infinite scroll
+window.addEventListener('scroll', () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+        loadMorePosts();
+    }
+});
+
+function loadMorePosts() {
+    if (currentPage * postsPerPage < posts.length) {
+        currentPage++;
+        displayPosts();
+    }
 }
 
-nav ul {
-    padding: 0;
-    list-style-type: none;
+// Search functionality
+const searchInput = document.getElementById('search-input');
+const searchButton = document.getElementById('search-button');
+
+searchButton.addEventListener('click', performSearch);
+searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        performSearch();
+    }
+});
+
+function performSearch() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const filteredPosts = posts.filter(post => 
+        post.title.toLowerCase().includes(searchTerm) || 
+        post.content.toLowerCase().includes(searchTerm)
+    );
+    document.getElementById('blog-posts').innerHTML = '';
+    currentPage = 1;
+    displayPosts(filteredPosts);
 }
 
-nav ul li {
-    display: inline;
-    margin-right: 10px;
-}
-
-nav ul li a {
-    color: var(--header-text);
-    text-decoration: none;
-}
-
-main {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-section {
-    margin-bottom: 30px;
-}
-
-h2 {
-    color: var(--text-color);
-}
-
-article {
-    background-color: var(--bg-color);
-    border: 1px solid var(--text-color);
-    padding: 15px;
-    margin-bottom: 20px;
-}
-
-footer {
-    background-color: var(--header-bg);
-    color: var(--header-text);
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-#theme-toggle {
-    background-color: var(--text-color);
-    color: var(--bg-color);
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-#post-form {
-    display: flex;
-    flex-direction: column;
-}
-
-#post-form input, #post-form textarea {
-    margin-bottom: 10px;
-    padding: 5px;
-}
-
-#post-form button {
-    align-self: flex-start;
-    padding: 5px 10px;
-    background-color: var(--header-bg);
-    color: var(--header-text);
-    border: none;
-    cursor: pointer;
-}
-
-.comment-form {
-    margin-top: 10px;
-}
-
-.comment-form input {
-    width: 100%;
-    padding: 5px;
-    margin-bottom: 5px;
-}
-
-.comment-form button {
-    padding: 5px 10px;
-    background-color: var(--header-bg);
-    color: var(--header-text);
-    border: none;
-    cursor: pointer;
-}
-
-.comments {
-    margin-top: 10px;
-}
-
-.comment {
-    background-color: var(--bg-color);
-    border: 1px solid var(--text-color);
-    padding: 10px;
-    margin-bottom: 5px;
-}
-
-pre code {
-    background-color: var(--code-bg);
-    display: block;
-    padding: 10px;
-    overflow-x: auto;
-}
-
-#search-container {
-    margin-top: 10px;
-}
-
-#search-input {
-    padding: 5px;
-    width: 200px;
-}
-
-#search-button {
-    padding: 5px 10px;
-    background-color: var(--text-color);
-    color: var(--bg-color);
-    border: none;
-    cursor: pointer;
-}
-
-#loading {
-    text-align: center;
-    margin-top: 20px;
-}
+// Initial display
+displayPosts();
