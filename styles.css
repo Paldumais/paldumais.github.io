@@ -1,207 +1,166 @@
 :root {
-    --primary-color: #8e44ad;
-    --secondary-color: #2c3e50;
-    --accent-color: #f39c12;
-    --text-color: #ecf0f1;
-    --bg-color: #34495e;
-}
-
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --header-bg: #2c3e50;
+    --header-text: #ecf0f1;
+    --code-bg: #f4f4f4;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, sans-serif;
     line-height: 1.6;
-    color: var(--text-color);
     margin: 0;
     padding: 0;
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
+    color: var(--text-color);
+    background-color: var(--bg-color);
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+body.dark-theme {
+    --bg-color: #333333;
+    --text-color: #ffffff;
+    --header-bg: #1a242f;
+    --header-text: #ffffff;
+    --code-bg: #2d2d2d;
 }
 
 header {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 1rem 0;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    transition: all 0.3s ease;
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 1rem;
+    text-align: center;
 }
 
-header:hover {
-    background: rgba(255, 255, 255, 0.2);
+header h1 {
+    margin: 0;
 }
 
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+nav ul {
+    padding: 0;
+    list-style-type: none;
 }
 
-.logo {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--accent-color);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+nav ul li {
+    display: inline;
+    margin-right: 10px;
 }
 
-nav {
-    display: flex;
-}
-
-nav a {
-    color: var(--text-color);
+nav ul li a {
+    color: var(--header-text);
     text-decoration: none;
-    margin-left: 1rem;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-nav a::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: var(--accent-color);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-}
-
-nav a:hover::after {
-    transform: scaleX(1);
 }
 
 main {
-    margin-top: 80px;
-    padding: 2rem 0;
-}
-
-.hero {
-    text-align: center;
-    padding: 6rem 0;
-    margin-bottom: 2rem;
-}
-
-.hero h1 {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-}
-
-.hero p {
-    font-size: 1.5rem;
-    max-width: 600px;
+    padding: 20px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
-.posts {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+section {
+    margin-bottom: 30px;
 }
 
-.post {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    transition: all 0.3s ease;
-}
-
-.post:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 12px 48px 0 rgba(31, 38, 135, 0.5);
-}
-
-.post-image {
-    height: 200px;
-    background-size: cover;
-    background-position: center;
-    transition: all 0.3s ease;
-}
-
-.post:hover .post-image {
-    transform: scale(1.1);
-}
-
-.post-content {
-    padding: 1.5rem;
-}
-
-.post h3 {
-    margin-top: 0;
-    color: var(--accent-color);
-}
-
-.read-more {
-    display: inline-block;
-    margin-top: 1rem;
-    color: var(--accent-color);
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-.read-more:hover {
+h2 {
     color: var(--text-color);
-    transform: translateX(5px);
+}
+
+article {
+    background-color: var(--bg-color);
+    border: 1px solid var(--text-color);
+    padding: 15px;
+    margin-bottom: 20px;
 }
 
 footer {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background-color: var(--header-bg);
+    color: var(--header-text);
     text-align: center;
-    padding: 1rem 0;
-    margin-top: 2rem;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
-.mobile-menu-btn {
-    display: none;
-    background: none;
+#theme-toggle {
+    background-color: var(--text-color);
+    color: var(--bg-color);
     border: none;
-    color: var(--text-color);
-    font-size: 1.5rem;
+    padding: 5px 10px;
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
-    .mobile-menu-btn {
-        display: block;
-    }
-    nav {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-    }
-    nav.active {
-        display: flex;
-    }
-    nav a {
-        padding: 1rem;
-        text-align: center;
-    }
+#post-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#post-form input, #post-form textarea {
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+#post-form button {
+    align-self: flex-start;
+    padding: 5px 10px;
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    border: none;
+    cursor: pointer;
+}
+
+.comment-form {
+    margin-top: 10px;
+}
+
+.comment-form input {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.comment-form button {
+    padding: 5px 10px;
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    border: none;
+    cursor: pointer;
+}
+
+.comments {
+    margin-top: 10px;
+}
+
+.comment {
+    background-color: var(--bg-color);
+    border: 1px solid var(--text-color);
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+pre code {
+    background-color: var(--code-bg);
+    display: block;
+    padding: 10px;
+    overflow-x: auto;
+}
+
+#search-container {
+    margin-top: 10px;
+}
+
+#search-input {
+    padding: 5px;
+    width: 200px;
+}
+
+#search-button {
+    padding: 5px 10px;
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    border: none;
+    cursor: pointer;
+}
+
+#loading {
+    text-align: center;
+    margin-top: 20px;
 }
