@@ -1,67 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paldumais Labs - Tech and Cybersecurity</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paldumais Labs | Technology and Cybersecurity Blog</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Paldumais Labs</h1>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-        <button id="theme-toggle">Toggle Theme</button>
-        <div id="search-container">
-            <input type="text" id="search-input" placeholder="Search posts...">
-            <button id="search-button">Search</button>
-        </div>
-    </header>
-
-    <main>
-        <section id="home">
-            <h2>Welcome to Paldumais Labs</h2>
-            <p>Exploring the frontiers of technology and cybersecurity.</p>
-        </section>
-
-        <section id="about">
-            <h2>About Us</h2>
-            <p>Paldumais Labs is dedicated to sharing insights and knowledge about the latest trends in tech and cybersecurity.</p>
-        </section>
-
-        <section id="blog">
-            <h2>Latest Posts</h2>
-            <div id="blog-posts"></div>
-            <div id="loading" style="display: none;">Loading more posts...</div>
-        </section>
-
-        <section id="new-post">
-            <h2>Write a New Post</h2>
-            <form id="post-form">
-                <input type="text" id="post-title" placeholder="Title" required>
-                <textarea id="post-content" placeholder="Content (Use ```language for code blocks)" required></textarea>
-                <button type="submit">Publish</button>
-            </form>
-        </section>
-
-        <section id="contact">
-            <h2>Get in Touch</h2>
-            <p>Have questions or suggestions? Reach out to us at contact@paldumais-labs.com</p>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 Paldumais Labs. All rights reserved.</p>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-    <script src="script.js"></script>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#">{{#links}}<span>{{name}}</span>{{/links}}</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <h1>Welcome to Paldumais Labs!</h1>
+    <ul>
+      {{#posts}}
+      <li>
+        <a href="{{url}}">{{title}}</a>
+        <p>{{summary}}</p>
+      </li>
+      {{/posts}}
+    </ul>
+  </main>
+  <script src="script.js"></script>
 </body>
 </html>
