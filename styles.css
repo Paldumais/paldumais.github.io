@@ -1,142 +1,96 @@
-// Theme switcher
-const themeToggle = document.getElementById('theme-toggle');
-const body = document.body;
-
-themeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-theme');
-    localStorage.setItem('theme', body.classList.contains('dark-theme') ? 'dark' : 'light');
-});
-
-// Load saved theme
-if (localStorage.getItem('theme') === 'dark') {
-    body.classList.add('dark-theme');
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
 }
 
-// Blog posts
-let posts = JSON.parse(localStorage.getItem('posts')) || [];
-let currentPage = 1;
-const postsPerPage = 5;
-
-function displayPosts(postsToDisplay = posts) {
-    const blogPosts = document.getElementById('blog-posts');
-    const startIndex = (currentPage - 1) * postsPerPage;
-    const endIndex = startIndex + postsPerPage;
-    const pagePostsToDisplay = postsToDisplay.slice(startIndex, endIndex);
-    
-    pagePostsToDisplay.forEach((post, index) => {
-        const article = document.createElement('article');
-        article.innerHTML = `
-            <h3>${post.title}</h3>
-            <div class="post-content">${formatContent(post.content)}</div>
-            <p>Published on: ${post.date}</p>
-            <div class="comments"></div>
-            <form class="comment-form">
-                <input type="text" placeholder="Add a comment" required>
-                <button type="submit">Comment</button>
-            </form>
-        `;
-        
-        const commentForm = article.querySelector('.comment-form');
-        const commentsDiv = article.querySelector('.comments');
-        
-        commentForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const commentInput = commentForm.querySelector('input');
-            const comment = commentInput.value;
-            post.comments.push(comment);
-            localStorage.setItem('posts', JSON.stringify(posts));
-            displayComments(commentsDiv, post.comments);
-            commentInput.value = '';
-        });
-        
-        displayComments(commentsDiv, post.comments);
-        
-        blogPosts.appendChild(article);
-    });
-
-    // Apply syntax highlighting
-    document.querySelectorAll('pre code').forEach((block) => {
-        hljs.highlightBlock(block);
-    });
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 1em;
+  text-align: center;
 }
 
-function formatContent(content) {
-    // Replace ```language ... ``` with <pre><code class="language">...</code></pre>
-    return content.replace(/```(\w+)?\s*([\s\S]*?)```/g, (match, language, code) => {
-        return `<pre><code class="${language || ''}">${code.trim()}</code></pre>`;
-    });
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
 }
 
-function displayComments(commentsDiv, comments) {
-    commentsDiv.innerHTML = '';
-    comments.forEach(comment => {
-        const commentElement = document.createElement('div');
-        commentElement.classList.add('comment');
-        commentElement.textContent = comment;
-        commentsDiv.appendChild(commentElement);
-    });
+nav li {
+  margin-right: 20px;
 }
 
-// New post form
-const postForm = document.getElementById('post-form');
-
-postForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const title = document.getElementById('post-title').value;
-    const content = document.getElementById('post-content').value;
-    const date = new Date().toLocaleDateString();
-    
-    const newPost = {
-        title,
-        content,
-        date,
-        comments: []
-    };
-    
-    posts.unshift(newPost);
-    localStorage.setItem('posts', JSON.stringify(posts));
-    currentPage = 1;
-    document.getElementById('blog-posts').innerHTML = '';
-    displayPosts();
-    
-    postForm.reset();
-});
-
-// Infinite scroll
-window.addEventListener('scroll', () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-        loadMorePosts();
-    }
-});
-
-function loadMorePosts() {
-    if (currentPage * postsPerPage < posts.length) {
-        currentPage++;
-        displayPosts();
-    }
+nav a {
+  color: #fff;
+  text-decoration: none;
 }
 
-// Search functionality
-const searchInput = document.getElementById('search-input');
-const searchButton = document.getElementById('search-button');
-
-searchButton.addEventListener('click', performSearch);
-searchInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        performSearch();
-    }
-});
-
-function performSearch() {
-    const searchTerm = searchInput.value.toLowerCase();
-    const filteredPosts = posts.filter(post => 
-        post.title.toLowerCase().includes(searchTerm) || 
-        post.content.toLowerCase().includes(searchTerm)
-    );
-    document.getElementById('blog-posts').innerHTML = '';
-    currentPage = 1;
-    displayPosts(filteredPosts);
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2em;
 }
 
-// Initial display
-displayPosts();
+h1 {
+  font-size: 2em;
+  margin-bottom: 0.5em;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 1em;
+}
+
+a {
+  text-decoration: none;
+  color: #337ab7;
+}
+
+a:hover {
+  color: #23527c;
+}
+
+.post {
+  margin-bottom: 2em;
+  padding: 1em;
+  border: 1px solid #ddd;
+  border-radius: 0.5em;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.post h1 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.post p {
+  font-size: 1em;
+  margin-bottom: 1em;
+}
+
+.tag {
+  background-color: #333;
+  color: #fff;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  margin-bottom: 1em;
+}
+
+.tag a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.tag a:hover {
+  color: #23527c;
+}
