@@ -1,30 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paldumais Labs | Technology and Cybersecurity Blog</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paldumais Labs</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8e44ad;
+            --secondary-color: #2c3e50;
+            --accent-color: #f39c12;
+            --text-color: #ecf0f1;
+            --bg-color: #34495e;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        header:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        nav {
+            display: flex;
+        }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        nav a:hover::after {
+            transform: scaleX(1);
+        }
+        main {
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+        .hero {
+            text-align: center;
+            padding: 6rem 0;
+            margin-bottom: 2rem;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .post {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            transition: all 0.3s ease;
+        }
+        .post:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 12px 48px 0 rgba(31, 38, 135, 0.5);
+        }
+        .post-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            transition: all 0.3s ease;
+        }
+        .post:hover .post-image {
+            transform: scale(1.1);
+        }
+        .post-content {
+            padding: 1.5rem;
+        }
+        .post h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+        }
+        .read-more {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .read-more:hover {
+            color: var(--text-color);
+            transform: translateX(5px);
+        }
+        footer {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+            nav.active {
+                display: flex;
+            }
+            nav a {
+                padding: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#">{{#links}}<span>{{name}}</span>{{/links}}</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <h1>Welcome to Paldumais Labs!</h1>
-    <ul>
-      {{#posts}}
-      <li>
-        <a href="{{url}}">{{title}}</a>
-        <p>{{summary}}</p>
-      </li>
-      {{/posts}}
-    </ul>
-  </main>
-  <script src="script.js"></script>
+    <header>
+        <div class="container header-content">
+            <div class="logo">Paldumais Labs</div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#tech">Tech</a>
+                <a href="#personal">Personal</a>
+                <a href="#about">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Welcome to Paldumais Labs</h1>
+                <p>Exploring the frontiers of technology and personal growth</p>
+            </div>
+        </section>
+
+        <section class="container">
+            <h2>Featured Posts</h2>
+            <div class="posts">
+                <div class="post">
+                    <div class="post-image" style="background-image: url('/api/placeholder/400/200');"></div>
+                    <div class="post-content">
+                        <h3>Revolutionizing AI: The Next Big Leap</h3>
+                        <p>Discover how the latest advancements in artificial intelligence are reshaping our world and what it means for the future.</p>
+                        <a href="#" class="read-more">Dive Deeper <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="post">
+                    <div class="post-image" style="background-image: url('/api/placeholder/400/200');"></div>
+                    <div class="post-content">
+                        <h3>The Art of Digital Minimalism</h3>
+                        <p>Explore how embracing digital minimalism can lead to increased productivity and a more balanced life in our hyper-connected world.</p>
+                        <a href="#" class="read-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Paldumais Labs. Innovating for a brighter future.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('nav').classList.toggle('active');
+        });
+
+        // Scroll animation for header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            header.style.background = window.scrollY > 50 ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.1)';
+        });
+
+        // Fancy hover effect for posts
+        const posts = document.querySelectorAll('.post');
+        posts.forEach(post => {
+            post.addEventListener('mousemove', (e) => {
+                const { left, top } = post.getBoundingClientRect();
+                const x = e.clientX - left;
+                const y = e.clientY - top;
+                
+                post.style.setProperty('--x', `${ x }px`);
+                post.style.setProperty('--y', `${ y }px`);
+            });
+        });
+    </script>
 </body>
 </html>
