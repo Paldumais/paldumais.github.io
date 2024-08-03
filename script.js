@@ -2,13 +2,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const darkModeToggle = document.getElementById('darkModeToggle');
     const animatedSections = document.querySelectorAll('.animated-section');
     const newsletterForm = document.getElementById('newsletterForm');
+    const threatCounter = document.getElementById('threatCounter');
 
     // Dark mode toggle
-    darkModeToggle.addEventListener('click', () => {
+    function toggleDarkMode() {
         document.body.classList.toggle('dark-mode');
         localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
         updateDarkModeIcon();
-    });
+    }
+
+    darkModeToggle.addEventListener('click', toggleDarkMode);
 
     // Check for saved dark mode preference
     if (localStorage.getItem('darkMode') === 'true') {
@@ -55,21 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Simulated real-time cybersecurity threat counter
-    const threatCounter = document.createElement('div');
-    threatCounter.id = 'threatCounter';
-    threatCounter.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: rgba(74, 144, 226, 0.9);
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
-        font-size: 14px;
-        z-index: 1000;
-    `;
-    document.body.appendChild(threatCounter);
-
     let threatCount = 0;
     function updateThreatCounter() {
         threatCount += Math.floor(Math.random() * 5);
