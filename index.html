@@ -3,63 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paldumais Labs</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Paldumais Labs - Tech & Cybersecurity</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <div class="container header-content">
-            <div class="logo">Paldumais Labs</div>
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <nav>
-                <a href="#home">Home</a>
-                <a href="#tech">Tech</a>
-                <a href="#personal">Personal</a>
-                <a href="#about">About</a>
-            </nav>
-        </div>
+        <h1>Paldumais Labs</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#blog">Blog</a></li>
+            </ul>
+        </nav>
+        <button id="darkModeToggle">Toggle Dark Mode</button>
     </header>
-
     <main>
-        <section class="hero">
-            <div class="container">
-                <h1>Welcome to Paldumais Labs</h1>
-                <p>Exploring the frontiers of technology and personal growth</p>
+        <section id="about">
+            <h2>About Paldumais Labs</h2>
+            <p>Welcome to Paldumais Labs, your hub for cutting-edge tech and cybersecurity insights. We're passionate about exploring the latest in technology and sharing our knowledge on self-hosted projects.</p>
+        </section>
+        <section id="projects" class="animated-section">
+            <h2>Featured Projects</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3>Secure Home Server</h3>
+                    <p>A guide to setting up a secure, self-hosted home server for personal cloud services.</p>
+                </div>
+                <div class="project-card">
+                    <h3>Cybersecurity Toolkit</h3>
+                    <p>An open-source collection of tools for penetration testing and security audits.</p>
+                </div>
+                <div class="project-card">
+                    <h3>IoT Security Monitor</h3>
+                    <p>A self-hosted solution to monitor and protect your IoT devices from cyber threats.</p>
+                </div>
             </div>
         </section>
-
-        <section class="container">
-            <h2>Featured Posts</h2>
-            <div class="posts">
-                <div class="post">
-                    <div class="post-image" style="background-image: url('/api/placeholder/400/200');"></div>
-                    <div class="post-content">
-                        <h3>Revolutionizing AI: The Next Big Leap</h3>
-                        <p>Discover how the latest advancements in artificial intelligence are reshaping our world and what it means for the future.</p>
-                        <a href="#" class="read-more">Dive Deeper <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="post">
-                    <div class="post-image" style="background-image: url('/api/placeholder/400/200');"></div>
-                    <div class="post-content">
-                        <h3>The Art of Digital Minimalism</h3>
-                        <p>Explore how embracing digital minimalism can lead to increased productivity and a more balanced life in our hyper-connected world.</p>
-                        <a href="#" class="read-more">Learn More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
+        <section id="blog">
+            <h2>Latest Blog Posts</h2>
+            <article>
+                <h3>The Importance of Self-Hosting in 2024</h3>
+                <p>Explore why self-hosting is becoming increasingly crucial for privacy and data control...</p>
+            </article>
+            <article>
+                <h3>Top 5 Cybersecurity Threats to Watch Out For</h3>
+                <p>Stay ahead of potential security risks with our comprehensive guide to current cyber threats...</p>
+            </article>
+        </section>
+        <section id="newsletter">
+            <h2>Stay Updated</h2>
+            <form id="newsletterForm">
+                <input type="email" id="emailInput" placeholder="Your Email" required>
+                <button type="submit">Subscribe</button>
+            </form>
         </section>
     </main>
-
     <footer>
-        <div class="container">
-            <p>&copy; 2024 Paldumais Labs. Innovating for a brighter future.</p>
-        </div>
+        <p>&copy; 2024 Paldumais Labs | Tech & Cybersecurity</p>
     </footer>
-
     <script src="script.js"></script>
 </body>
 </html>
