@@ -3,64 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Paldumais Labs - Your hub for cutting-edge tech and cybersecurity insights, including self-hosted projects.">
     <title>Paldumais Labs - Tech & Cybersecurity</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Paldumais Labs</h1>
-        <nav>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#blog">Blog</a></li>
-            </ul>
-        </nav>
-        <button id="darkModeToggle">Toggle Dark Mode</button>
+        <div class="container">
+            <h1>Paldumais Labs</h1>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                </ul>
+            </nav>
+            <button id="darkModeToggle" aria-label="Toggle Dark Mode">
+                <span class="icon">🌓</span>
+            </button>
+        </div>
     </header>
     <main>
-        <section id="about">
-            <h2>About Paldumais Labs</h2>
-            <p>Welcome to Paldumais Labs, your hub for cutting-edge tech and cybersecurity insights. We're passionate about exploring the latest in technology and sharing our knowledge on self-hosted projects.</p>
-        </section>
-        <section id="projects" class="animated-section">
-            <h2>Featured Projects</h2>
-            <div class="project-grid">
-                <div class="project-card">
-                    <h3>Secure Home Server</h3>
-                    <p>A guide to setting up a secure, self-hosted home server for personal cloud services.</p>
+        <div class="container">
+            <section id="about">
+                <h2>About Paldumais Labs</h2>
+                <p>Welcome to Paldumais Labs, your hub for cutting-edge tech and cybersecurity insights. We're passionate about exploring the latest in technology and sharing our knowledge on self-hosted projects.</p>
+            </section>
+            <section id="projects" class="animated-section">
+                <h2>Featured Projects</h2>
+                <div class="project-grid">
+                    <article class="project-card">
+                        <h3>Secure Home Server</h3>
+                        <p>A guide to setting up a secure, self-hosted home server for personal cloud services.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </article>
+                    <article class="project-card">
+                        <h3>Cybersecurity Toolkit</h3>
+                        <p>An open-source collection of tools for penetration testing and security audits.</p>
+                        <a href="#" class="btn">Explore Tools</a>
+                    </article>
+                    <article class="project-card">
+                        <h3>IoT Security Monitor</h3>
+                        <p>A self-hosted solution to monitor and protect your IoT devices from cyber threats.</p>
+                        <a href="#" class="btn">Get Started</a>
+                    </article>
                 </div>
-                <div class="project-card">
-                    <h3>Cybersecurity Toolkit</h3>
-                    <p>An open-source collection of tools for penetration testing and security audits.</p>
-                </div>
-                <div class="project-card">
-                    <h3>IoT Security Monitor</h3>
-                    <p>A self-hosted solution to monitor and protect your IoT devices from cyber threats.</p>
-                </div>
-            </div>
-        </section>
-        <section id="blog">
-            <h2>Latest Blog Posts</h2>
-            <article>
-                <h3>The Importance of Self-Hosting in 2024</h3>
-                <p>Explore why self-hosting is becoming increasingly crucial for privacy and data control...</p>
-            </article>
-            <article>
-                <h3>Top 5 Cybersecurity Threats to Watch Out For</h3>
-                <p>Stay ahead of potential security risks with our comprehensive guide to current cyber threats...</p>
-            </article>
-        </section>
-        <section id="newsletter">
-            <h2>Stay Updated</h2>
-            <form id="newsletterForm">
-                <input type="email" id="emailInput" placeholder="Your Email" required>
-                <button type="submit">Subscribe</button>
-            </form>
-        </section>
+            </section>
+            <section id="blog">
+                <h2>Latest Blog Posts</h2>
+                <article>
+                    <h3>The Importance of Self-Hosting in 2024</h3>
+                    <p>Explore why self-hosting is becoming increasingly crucial for privacy and data control...</p>
+                    <a href="#" class="btn">Read More</a>
+                </article>
+                <article>
+                    <h3>Top 5 Cybersecurity Threats to Watch Out For</h3>
+                    <p>Stay ahead of potential security risks with our comprehensive guide to current cyber threats...</p>
+                    <a href="#" class="btn">Read More</a>
+                </article>
+            </section>
+            <section id="newsletter">
+                <h2>Stay Updated</h2>
+                <form id="newsletterForm">
+                    <label for="emailInput" class="visually-hidden">Email Address</label>
+                    <input type="email" id="emailInput" placeholder="Your Email" required>
+                    <button type="submit" class="btn">Subscribe</button>
+                </form>
+            </section>
+        </div>
     </main>
     <footer>
-        <p>&copy; 2024 Paldumais Labs | Tech & Cybersecurity</p>
+        <div class="container">
+            <p>&copy; 2024 Paldumais Labs | Tech & Cybersecurity</p>
+        </div>
     </footer>
     <script src="script.js"></script>
 </body>
