@@ -89,23 +89,6 @@
         
         .command-link { color: var(--color-primary-accent); font-weight: 600; cursor: pointer; text-decoration: underline; }
         .command-link:hover { background-color: var(--color-primary-accent); color: var(--color-background); }
-
-        /* -- Styles pour le profil -- */
-        .profile-output {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .profile-picture {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--color-primary-accent);
-            flex-shrink: 0;
-        }
-        .profile-text { flex: 1; min-width: 250px; }
     </style>
 </head>
 <body>
@@ -188,7 +171,7 @@
                 }
                 
                 processCommand(command);
-                if (command !== 'clear') {
+                if (command !== 'clear' && command !== 'cls') {
                     showPrompt();
                 }
             }
@@ -198,7 +181,7 @@
                     const command = event.target.dataset.command;
                     const currentInput = document.getElementById('terminal-input');
                     if (currentInput) { currentInput.parentElement.remove(); }
-                    print(`<span class="terminal-prompt">></span> ${command}`);
+                    print(`<span class="terminal-prompt">❯</span> ${command}`);
                     processCommand(command);
                     showPrompt();
                 }
@@ -208,26 +191,21 @@
                 switch(command) {
                     case 'aide':
                         print("Commandes disponibles :");
-                        print(`  <span class="command-link" data-command="profil">profil</span>      → Qui suis-je ?`);
-                        print(`  <span class="command-link" data-command="services">services</span>    → Découvrir ce que je propose.`);
-                        print(`  <span class="command-link" data-command="portfolio">portfolio</span>   → Voir un projet concret.`);
-                        print(`  <span class="command-link" data-command="contact">contact</span>     → Afficher les options pour me joindre.`);
-                        print(`  <span class="command-link" data-command="clear">clear</span>       → Effacer l'écran.`);
+                        print(`  <span class="command-link" data-command="profil">profil</span>     → Qui suis-je ?`);
+                        print(`  <span class="command-link" data-command="services">services</span>   → Découvrir ce que je propose.`);
+                        print(`  <span class="command-link" data-command="portfolio">portfolio</span>  → Voir un projet concret.`);
+                        print(`  <span class="command-link" data-command="contact">contact</span>    → Afficher les options pour me joindre.`);
+                        print(`  <span class="command-link" data-command="clear">clear</span>      → Effacer l'écran.`);
                         break;
                     case 'profil':
+                        // --- MODIFIÉ : Espacement réduit pour une présentation plus compacte ---
                         const profileHTML = `
-                            <div class="profile-output">
-                                <img src="profile.jpg"
-                                     alt="Photo de Pierre-Alexandre Lévesque Dumais"
-                                     class="profile-picture">
-                                <div class="profile-text">
-                                    <p style="color:var(--color-primary-accent); font-weight: bold;">
-                                        Pierre-Alexandre Lévesque Dumais
-                                    </p>
-                                    <p>Architecte de solutions numériques passionné, basé à La Tuque, QC.</p>
-                                    <p>Ma mission : Transformer des idées complexes en technologies robustes, performantes et intuitives.</p>
-                                </div>
-                            </div>`;
+                            <div style="line-height: 1.4;">
+                                <p style="text-align: center; color:var(--color-primary-accent); font-weight: bold; font-size: 1.2em; margin: 0 0 0.4em 0;">Pierre-Alexandre Lévesque Dumais</p>
+                                <p style="margin: 0.4em 0 0.2em 0;">Architecte de solutions numériques passionné, basé à <span style="font-weight: bold;">La Tuque, QC</span>.</p>
+                                <p style="margin: 0;">Ma mission : Transformer des idées complexes en technologies <span style="font-weight: bold;">robustes</span>, <span style="font-weight: bold;">performantes</span> et <span style="font-weight: bold;">intuitives</span>.</p>
+                            </div>
+                        `;
                         print(profileHTML);
                         break;
                     case 'services':
@@ -237,9 +215,9 @@
                         print("<span style='color:var(--color-text-light)'>3. Support Technique :</span> Diagnostic et résolution de pannes matérielles et logicielles.");
                         break;
                     case 'portfolio':
-                         print("<span style='color:var(--color-primary-accent)'>## Projet : InnovLaTuque.ca ##</span>");
-                         print("Plateforme web pour la promotion de l'innovation locale à La Tuque.");
-                         print("Lien : <a href='https://innovlatuque.ca' target='_blank'>https://innovlatuque.ca</a>");
+                          print("<span style='color:var(--color-primary-accent)'>## Projet : InnovLaTuque.ca ##</span>");
+                          print("Plateforme web pour la promotion de l'innovation locale à La Tuque.");
+                          print("Lien : <a href='https://innovlatuque.ca' target='_blank'>https://innovlatuque.ca</a>");
                         break;
                     case 'contact':
                         print("<span style='color:var(--color-primary-accent)'>## Options de contact ##</span>");
